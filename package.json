@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/onlylonely1986/microservice_1.1#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "webpack": "^4.41.6"
   }
 }
