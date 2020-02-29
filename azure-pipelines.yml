@@ -21,3 +21,7 @@ steps:
 
 - script: npm run build
   displayName: 'Run a build'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)'
