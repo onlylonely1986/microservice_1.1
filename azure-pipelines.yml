@@ -22,15 +22,21 @@ steps:
 - script: npm run build
   displayName: 'Run a build'
 
+
 - task: CopyFiles@2
   inputs:
-    Contents: '**' ## update to match what you want to copy
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: |
+      **\*.js
+      package.json
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
-  inputs: 
-    pathtoPublish: $(Build.ArtifactStagingDirectory) # dist or build files
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
     
 # - task: PublishBuildArtifacts@1
 #  inputs:
