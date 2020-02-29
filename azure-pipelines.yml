@@ -35,13 +35,18 @@ steps:
   inputs:
     rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
     includeRootFolder: true
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.drop).zip'
-  
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.app).zip'
+
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
+  displayName: Publish Artifact
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    
-# - task: PublishBuildArtifacts@1
-#  inputs:
-#    PathtoPublish: '$(System.DefaultWorkingDirectory)'
+    pathToPublish: $(build.artifactstagingdirectory)
+    artifactName: app
+    artifactType: container
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Deployment Scripts
+  inputs:
+    pathToPublish: deploy
+    artifactName: deploy
+    artifactType: container

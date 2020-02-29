@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "packageUrl": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "appName": "[concat(uniqueString(subscription().subscriptionId, resourceGroup().name), 'web')]",
+        "appServicePlanName": "MyAppServicePlan"
+    },
+    "resources": [
+        {
+            "name": "[variables('appServicePlanName')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2015-08-01",
+            "kind": "app",
+            "sku": {
+                "name": "F1",
+                "tier": "Free",
+                "size": "F1",
+                "family": "F",
+                "capacity": 1
+            },
+            "properties": {
+                "name": "[variables('appServicePlanName')]",
+                "numberOfWorkers": 1
+            }
+        },
+        {
+            "name": "[variables('appName')]",
+            "type": "Microsoft.Web/sites",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2015-08-01",
+            "kind": "web",
+            "properties": {
+                "name": "[variables('appName')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]"
+            ],
+            "resources": [
+                {
+                  "name": "appsettings",
+                  "type": "config",
+                  "apiVersion": "2014-11-01",
+                  "properties": {
+                    "WEBSITE_RUN_FROM_PACKAGE": "[parameters('1')]"
+                  },
+                  "dependsOn": [
+                    "[variables('appName')]"
+                  ]
+                }
+            ]
+        }
+    ]
+}
