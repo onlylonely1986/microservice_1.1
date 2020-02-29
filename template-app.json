@@ -48,7 +48,7 @@
                   "type": "config",
                   "apiVersion": "2014-11-01",
                   "properties": {
-                    "WEBSITE_RUN_FROM_PACKAGE": "[parameters('1')]"
+                    "WEBSITE_RUN_FROM_PACKAGE": "[parameters("d:\home\data\SitePackages")]"
                   },
                   "dependsOn": [
                     "[variables('appName')]"
