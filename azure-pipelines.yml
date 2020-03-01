@@ -40,13 +40,13 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: Publish Artifact
   inputs:
-    pathToPublish: $(build.artifactstagingdirectory)
+    pathToPublish: '$(build.artifactstagingdirectory)/$(Build.app).zip'
     artifactName: app
     artifactType: container
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish Deployment Scripts
-  inputs:
-    pathToPublish: deploy
-    artifactName: deploy
-    artifactType: container
+# - task: PublishBuildArtifacts@1
+#  displayName: Publish Deployment Scripts
+#  inputs:
+#    pathToPublish: deploy
+#    artifactName: deploy
+#    artifactType: container
